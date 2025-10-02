@@ -1,16 +1,16 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import asyncHandler from 'express-async-handler';
 
 const { sign } = jwt;
 const { hash, compare } = bcrypt;
 
 // Register route
-import asyncHandler from 'express-async-handler';
 const registerUser = asyncHandler(
     async (req, res) => {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { name, email, password, role} = req.body;
+        if (!name || !email || !password || !role) {
             return res.status(400).json({ message: 'All fields are required' });
         }
     
@@ -20,7 +20,7 @@ const registerUser = asyncHandler(
         }
     
         const hashedPassword = await hash(password, 10);
-        const user = new User({ name, email, password: hashedPassword });
+        const user = new User({ name, email, password: hashedPassword , role});
         await user.save();
         res.status(201).json({ message: 'User registered successfully' });
     }

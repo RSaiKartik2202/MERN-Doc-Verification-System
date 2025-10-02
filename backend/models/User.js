@@ -14,6 +14,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        enum: ['User', 'Institution', 'Company'],
+        default: 'User',
+        required: true,
+    }
 });
 
 export default model('User', userSchema);
