@@ -18,7 +18,16 @@ export function AuthProvider({ children }) {
         localStorage.setItem("user", JSON.stringify(userData));
         setToken(jwt);
         setUser(userData);
-        navigate("/dashboard");
+        // navigate("/dashboard");
+        if (userData.role === "Institution") {
+            navigate("/institute/upload");
+        } else if (userData.role === "Company") {
+            navigate("/company/verify");
+        } else if (userData.role === "User") {
+            navigate("/dashboard"); // optional for student role
+        } else {
+            navigate("/"); // fallback
+        }
     };
 
     const logout = () => {

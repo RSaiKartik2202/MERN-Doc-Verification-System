@@ -2,8 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
+import InstituteUpload from "./pages/InstituteUpload";
+import CompanyVerify from "./pages/CompanyVerify";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 function App() {
@@ -20,6 +22,22 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             }
+        />
+        <Route
+          path="/institute/upload"
+          element={
+            <ProtectedRoute allowedRoles={['institute']}>
+              <InstituteUpload />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/company/verify"
+          element={
+            <ProtectedRoute allowedRoles={['company']}>
+              <CompanyVerify />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </>

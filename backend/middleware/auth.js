@@ -13,7 +13,8 @@ function auth(req, res, next) {
         const decoded = verify(token, JWT_SECRET);
         req.user = decoded;
         next();
-    } catch (ex) {
+    } catch (err) {
+        console.error("JWT verification failed:", err.message);
         res.status(401).json({ message: 'Invalid token.' });
     }
 }
