@@ -43,8 +43,8 @@ const loginUser = asyncHandler(
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const token = sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email } });
+        const token = sign({ userId: user._id, role: user.role}, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, role:user.role } });
     }
 );
 

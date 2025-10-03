@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
 export default function Login() {
+  const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -12,10 +14,10 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/api/login", formData);
-      localStorage.setItem("token", res.data.token); // save JWT
+      login(res.data.user, res.data.token);
       alert("Login successful!");
     } catch (err) {
-      alert(err.response?.data?.message || "Error logging in");
+      console.error(err.response?.data || err.message);
     }
   };
 
