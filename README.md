@@ -127,6 +127,7 @@ A secure document verification system built with the MERN stack (MongoDB, Expres
 
 ### Project Structure
 
+``` bash
 doc-verification-system/
 ├─ backend/
 │ ├─ controllers/
@@ -150,7 +151,7 @@ doc-verification-system/
 │ └─ signFiles.js # Script to digitally sign certificate files and save into JSON
 ├─ README.md
 └─ package.json
-
+```
 ### License
 
 This project is licensed under the MIT License.
