@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 const { verify } = jwt;
-const JWT_SECRET = process.env.JWT_SECRET;
 
 function auth(req, res, next) {
+    const JWT_SECRET = process.env.JWT_SECRET;
     const token = req.header('Authorization')?.replace('Bearer ', '');
     if (!token) {
         return res.status(401).json({ message: 'Access denied. No token provided.' });
@@ -13,7 +13,8 @@ function auth(req, res, next) {
         const decoded = verify(token, JWT_SECRET);
         req.user = decoded;
         next();
-    } catch (ex) {
+    } catch (err) {
+        console.error("JWT verification failed:", err.message);
         res.status(401).json({ message: 'Invalid token.' });
     }
 }
