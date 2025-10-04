@@ -26,7 +26,7 @@ function App() {
         <Route
           path="/institute/upload"
           element={
-            <ProtectedRoute allowedRoles={['institute']}>
+            <ProtectedRoute allowedRoles={['Institution']}>
               <InstituteUpload />
             </ProtectedRoute>
           }
@@ -34,7 +34,7 @@ function App() {
         <Route
           path="/company/verify"
           element={
-            <ProtectedRoute allowedRoles={['company']}>
+            <ProtectedRoute allowedRoles={['Company']}>
               <CompanyVerify />
             </ProtectedRoute>
           }

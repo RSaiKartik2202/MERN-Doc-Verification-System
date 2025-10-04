@@ -9,7 +9,7 @@ const { hash, compare } = bcrypt;
 // Register route
 const registerUser = asyncHandler(
     async (req, res) => {
-        const { name, email, password, role} = req.body;
+        const { name, email, password, role, institutionCode} = req.body;
         if (!name || !email || !password || !role) {
             return res.status(400).json({ message: 'All fields are required' });
         }
@@ -20,7 +20,7 @@ const registerUser = asyncHandler(
         }
     
         const hashedPassword = await hash(password, 10);
-        const user = new User({ name, email, password: hashedPassword , role});
+        const user = new User({ name, email, password: hashedPassword , role, institutionCode});
         await user.save();
         res.status(201).json({ message: 'User registered successfully' });
     }
@@ -43,8 +43,8 @@ const loginUser = asyncHandler(
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const token = sign({ userId: user._id, role: user.role}, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, role:user.role } });
+        const token = sign({ userId: user._id, role: user.role, institutionCode: user.institutionCode}, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, role:user.role, institutionCode: user.institutionCode } });
     }
 );
 

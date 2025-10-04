@@ -2,22 +2,32 @@
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
+import { generateKeyPair } from "./generateKeys.js";
 
-// === CONFIGURATION ===
-const instituteName = "NITW"; // <--- change institute name here
+// === CLI ARGUMENTS ===
+const args = process.argv.slice(2);
+if (args.length < 1) {
+  console.error("Usage: node signFiles.js <INSTITUTION_CODE>");
+  process.exit(1);
+}
+const institutionCode = args[0];
 
-const privateKeyPath = `../data/keys/${instituteName}_private.pem`;
-const certsFolder = `../data/certificates/${instituteName}`;
-const outputFile = `../data/signatures/${instituteName}_signatures.json`;
+// === FILE PATHS ===
+const privateKeyPath = `../data/keys/${institutionCode}_private.pem`;
+const publicKeyPath = `../data/keys/${institutionCode}_public.pem`;
+const certsFolder = `../data/certificates/${institutionCode}`;
+const outputFile = `../data/signatures/${institutionCode}_signatures.json`;
 
 // Ensure output folder exists
 fs.mkdirSync(path.dirname(outputFile), { recursive: true });
 
-// === LOAD PRIVATE KEY ===
-if (!fs.existsSync(privateKeyPath)) {
-  console.error(`❌ Private key not found for ${instituteName}: ${privateKeyPath}`);
-  process.exit(1);
+// === GENERATE KEYS IF MISSING ===
+if (!fs.existsSync(privateKeyPath) || !fs.existsSync(publicKeyPath)) {
+  console.log(`🔑 Keys not found for ${institutionCode}, generating new key pair...`);
+  generateKeyPair(institutionCode);
 }
+
+// === LOAD PRIVATE KEY ===
 const privateKey = fs.readFileSync(privateKeyPath, "utf8");
 
 // === SIGNING FUNCTION ===
@@ -42,7 +52,7 @@ const signatures = files.map((file) => {
   const signature = signFile(filePath);
   console.log(`✅ Signed: ${file}`);
   return {
-    file,       // original filename (e.g., rollnumber.pdf)
+    file,       // original filename
     signature,  // base64 signature
   };
 });

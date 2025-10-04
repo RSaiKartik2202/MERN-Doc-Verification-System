@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const InstituteCertSchema = new mongoose.Schema({
-  institute: {
+  institutionCode: {
     type: String,
     required: true,
     unique: true,

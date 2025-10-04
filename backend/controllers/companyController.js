@@ -3,26 +3,25 @@ import crypto from 'crypto';
 import Certificate from '../models/Certificate.js';
 import InstituteCert from '../models/InstituteCert.js';
 
-// Dummy company verification route with file handling
 const verifyDocument = asyncHandler(async (req, res) => {
-  const { institute, rollNumber } = req.body;
+  const { rollNumber, institutionCode } = req.body;
   const file = req.file;
 
-  if (!institute || !rollNumber || !file) {
-    return res.status(400).json({ message: 'Institute, roll number, and file are required' });
+  if (!institutionCode || !rollNumber || !file) {
+    return res.status(400).json({ message: 'Institution code, roll number, and file are required' });
   }
 
-  console.log(`Verification request for roll number ${rollNumber} from institute ${institute}`);
+  console.log(`Verification request for roll number ${rollNumber} from institute ${institutionCode}`);
 
   const certRecord =await Certificate.findOne({
-    instituteName: institute,
+    institutionCode: institutionCode,
     rollNumber: rollNumber,
   });
   if (!certRecord) {
     return res.status(404).json({ message: 'No certificate record found for the provided details' });
   }
 
-  const instituteCert =await InstituteCert.findOne({institute: institute});
+  const instituteCert =await InstituteCert.findOne({institutionCode: institutionCode});
   if(!instituteCert) {
     return res.status(404).json({ message: 'No PKC found for the provided institute' });
   }
@@ -40,11 +39,9 @@ const verifyDocument = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Document verification failed: Invalid signature.' });
   }
 
-  
-
   res.status(200).json({
     success: true,
-    message: `Certificate of '${rollNumber}' at '${institute}' verified successfully`,
+    message: `Certificate of '${rollNumber}' at '${institutionCode}' verified successfully`,
     data: {
       fileName: file.originalname,
       verified: true,

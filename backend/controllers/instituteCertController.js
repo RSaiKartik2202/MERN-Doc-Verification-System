@@ -1,14 +1,14 @@
 import asyncHandler from "express-async-handler";
 import InstituteCert from "../models/InstituteCert.js";
 
-// GET /api/institute/certificate?institute=NITW
+// GET /api/institute/certificate
 const getInstituteCert = asyncHandler(async (req, res) => {
-  const { institute } = req.query;
-  if (!institute) {
-    return res.status(400).json({ message: "Institute name is required" });
+  const institutionCode= req.user.institutionCode;
+  if (!institutionCode) {
+    return res.status(400).json({ message: "Institution code missing in token" });
   }
 
-  const cert = await InstituteCert.findOne({ institute });
+  const cert = await InstituteCert.findOne({ institutionCode });
   if (!cert) {
     return res.json({ exists: false });
   }
@@ -18,27 +18,22 @@ const getInstituteCert = asyncHandler(async (req, res) => {
 
 // POST /api/institute/certificate
 const uploadInstituteCert = asyncHandler(async (req, res) => {
-  const { instituteName } = req.body;
+  const institutionCode = req.user.institutionCode;
+  if (!institutionCode) {
+    return res.status(400).json({ message: "Institution code missing in token" });
+  }
   const file = req.file;
-
-  if (!instituteName || !file) {
-    console.log(instituteName, file);
-    return res.status(400).json({ message: "Institute name and certificate file are required" });
+  if (!file) {
+    return res.status(400).json({ message: "Public Key Certificate(PKC) is required" });
   }
 
   // Convert buffer to string
   const publicKeyPem = file.buffer.toString("utf-8");
 
-  // Prevent duplicate certs
-  const existing = await InstituteCert.findOne({ institute:instituteName });
-  if (existing) {
-    return res.status(400).json({ message: "Certificate already exists for this institute" });
-  }
-
-  const cert = new InstituteCert({ institute:instituteName, publicKey: publicKeyPem });
+  const cert = new InstituteCert({ institutionCode: institutionCode, publicKey: publicKeyPem });
   await cert.save();
 
-  res.status(201).json({ message: "Certificate uploaded successfully" });
+  res.status(201).json({ message: "Public Key Certificate(PKC) uploaded successfully",publicKey: cert.publicKey });
 });
 
 export { getInstituteCert, uploadInstituteCert };

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Logout from "../components/Logout";
 
 export default function Dashboard() {
   const { user, logout } = useContext(AuthContext);
@@ -12,7 +13,7 @@ export default function Dashboard() {
       {user?.role === "company" && <button>Verify Student Docs</button>}
       {user?.role === "student" && <button>View My Certificates</button>}
       <br />
-      <button onClick={logout}>Logout</button>
+      <Logout />
     </div>
   );
 }

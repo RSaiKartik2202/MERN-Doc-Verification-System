@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
 
   const handleChange = (e) => {
@@ -12,7 +14,8 @@ export default function Register() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/api/register", formData);
-      alert(res.data.message || "Registered successfully!");
+      // alert(res.data.message || "Registered successfully!");
+      navigate("/login");
     } catch (err) {
       alert(err.response?.data?.message || "Error registering user");
     }
@@ -32,14 +35,11 @@ export default function Register() {
             <option value="Institution">Institution</option>
         </select>
 
-        {/* {formData.role === "institute" && (
-        <input 
-            type="text" 
-            name="proof" 
-            placeholder="Enter institute code/proof" 
-            onChange={handleChange} 
-        />
-        )} */}
+        {
+          formData.role === "Institution" && (
+            <input type="text" name="institutionCode" placeholder="Institution Code" onChange={handleChange} required />
+          )
+        }
 
         <button type="submit">Register</button>
       </form>

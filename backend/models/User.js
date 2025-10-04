@@ -19,7 +19,10 @@ const userSchema = new Schema({
         enum: ['User', 'Institution', 'Company'],
         default: 'User',
         required: true,
-    }
+    },
+    institutionCode: {
+        type: String,
+    },
 });
 
 export default model('User', userSchema);

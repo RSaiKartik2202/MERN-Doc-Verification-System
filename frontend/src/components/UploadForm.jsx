@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
-export default function UploadForm({instituteName,certExists}) {
+export default function UploadForm({certExists}) {
   const { token } = useContext(AuthContext);
   const [files, setFiles] = useState([]);
   const [status, setStatus] = useState([]);
@@ -44,6 +44,8 @@ export default function UploadForm({instituteName,certExists}) {
     for (let i = 0; i < files.length; i++) {
       const formData = new FormData();
       const file = files[i];
+      // Assuming roll number is part of the file name before the extension
+      // In future, we can either extract it from the pdf or add metadata during signing
       const rollNumber = file.name.replace(".pdf", "");
       const signature = signatures[file.name];
       if (!signature) {
@@ -53,12 +55,9 @@ export default function UploadForm({instituteName,certExists}) {
       }
       formData.append("signature", signature);
       formData.append("file", file);
-      formData.append("instituteName", instituteName);
       formData.append("rollNumber", rollNumber);
 
       try {
-        // Replace with actual backend endpoint
-        console.log(token);
         await axios.post("http://localhost:5000/api/institute/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",

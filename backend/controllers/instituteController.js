@@ -5,27 +5,25 @@ import crypto from "crypto";
 import Certificate from '../models/Certificate.js';
 import InstituteCert from '../models/InstituteCert.js';
 
-// Dummy institute upload route with file handling
 const uploadDocument = asyncHandler(async (req, res) => {
-  const { instituteName, signature, rollNumber } = req.body;
+  const {signature, rollNumber } = req.body;
+  const institutionCode = req.user.institutionCode;
   const file = req.file;
 
-  if (!instituteName || !file || !rollNumber || !signature) {
-    return res.status(400).json({ message: 'Institute name, signature, roll number and file are required' });
+  if (!institutionCode || !file || !rollNumber || !signature) {
+    return res.status(400).json({ message: 'Institute code, signature, roll number and file are required' });
   }
-  console.log(`Received upload request from ${instituteName} for roll number ${rollNumber}`);
+  console.log(`Received upload request from ${institutionCode} for roll number ${rollNumber}`);
 
-  const uploadsFolder=path.join(process.cwd(), 'data' , 'uploaded_files', instituteName);
+  const uploadsFolder=path.join(process.cwd(), 'data' , 'uploaded_files', institutionCode);
 
   fs.mkdirSync(uploadsFolder, { recursive: true });
   const filePath = path.join(uploadsFolder, file.originalname);
   fs.writeFileSync(filePath, file.buffer);
 
-  // const fileHash = crypto.createHash('sha256').update(file.buffer).digest('hex');
-
-  const existingCert = await InstituteCert.findOne({ institute: instituteName });
+  const existingCert = await InstituteCert.findOne({ institutionCode });
   if(!existingCert) {
-    return res.status(400).json({ message: `Institute '${instituteName}' hasn't registered it's PKC.` });
+    return res.status(400).json({ message: `'${institutionCode}' hasn't registered it's PKC.` });
   }
 
   const publicKey = existingCert.publicKey;
@@ -36,18 +34,21 @@ const uploadDocument = asyncHandler(async (req, res) => {
 
   const isValid = verifier.verify(publicKey, signature, 'base64');
   if (!isValid) {
+    console.log(signature);
     return res.status(400).json({ message: 'Invalid signature. Upload rejected.' });
   }
 
+  console.log('Valid signature. Proceeding to save certificate record.');
+
   await Certificate.create({
     rollNumber,
-    instituteName,
+    institutionCode,
     signature,
   });
 
   res.status(200).json({
     success: true,
-    message: `Certificate of roll no.'${rollNumber}' uploaded successfully by '${instituteName}'`,
+    message: `Certificate of roll no.'${rollNumber}' uploaded successfully by '${institutionCode}'`,
     data: {
       fileName: file.originalname,
       mimeType: file.mimetype,

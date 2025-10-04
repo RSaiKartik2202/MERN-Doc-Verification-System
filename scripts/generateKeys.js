@@ -10,12 +10,10 @@ export function generateKeyPair(instituteName) {
   });
 
   // Save keys locally
-  fs.writeFileSync(`../data/private_keys/${instituteName}_private.pem`, privateKey);
-  fs.writeFileSync(`../data/private_keys/${instituteName}_public.pem`, publicKey);
+  fs.writeFileSync(`../data/keys/${instituteName}_private.pem`, privateKey);
+  fs.writeFileSync(`../data/keys/${instituteName}_public.pem`, publicKey);
 
   console.log("Key pair generated:");
   console.log(`${instituteName}_private.pem`);
   console.log(`${instituteName}_public.pem`);
 }
-
-generateKeyPair("NITW"); // example run
