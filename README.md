@@ -62,6 +62,7 @@ A secure document verification system built with the MERN stack (MongoDB, Expres
    npm run dev
    cd ../frontend
    npm start/npm run dev
+```
 
 ### Usage
 
