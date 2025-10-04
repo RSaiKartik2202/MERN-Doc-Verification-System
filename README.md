@@ -42,60 +42,75 @@ A secure document verification system built with the MERN stack (MongoDB, Expres
 
 ### Installation
 
-1. Clone the repository
-   `git clone https://github.com/RSaiKartik2202/doc-verification-system.git`
-   `cd doc-verification-system`
-2. Backend setup
-   `cd backend`
-   `npm install`
-3. Frontend setup
-   `cd ../frontend`
-   `npm install`
-4. Environment variables
-   `MONGO_URI=<your_mongodb_uri>`
-   `JWT_SECRET=<your_jwt_secret>`
-   `PORT=5000`
-5. Run the app
-   `cd backend`
-   `npm run dev`
-   `cd ../frontend`
-   `npm start/npm run dev`
+```bash
+
+# Clone the repository
+   git clone https://github.com/RSaiKartik2202/doc-verification-system.git
+   cd doc-verification-system
+# Backend setup
+   cd backend
+   npm install
+# Frontend setup
+   cd ../frontend
+   npm install
+# Environment variables
+   MONGO_URI=<your_mongodb_uri>
+   JWT_SECRET=<your_jwt_secret>`
+   PORT=5000
+# Run the app
+   cd backend
+   npm run dev
+   cd ../frontend
+   npm start/npm run dev
 
 ### Usage
 
 1. Institute Flow:
 
-- Sign up as an institute.
+   - Sign up as an institute.
 
-- Upload public key certificate.
+   - Upload Public Key Certificate (PKC).
 
-- Upload digitally signed student certificates.
+   - Upload digitally signed student certificates.
 
-- Upload digital signatures of certificates.
+   - Upload digital signatures of certificates.
 
-- Certificates are hashed and stored in the database along with the digital signature.
+   - Certificates are hashed and stored in the database along with the digital signature.
 
 2. Company Flow:
 
-- Sign up as a company.
+   - Sign up as a company.
 
-- Submit a certificate PDF for verification.
+   - Submit a certificate PDF for verification.
 
-- System checks the hash against stored certificates digital signature and returns verification status.
+   - System checks the hash against stored certificates digital signature and returns verification status.
 
 3. Digital Signature Workflow:
+
    1. Key Generation
+
    - Run scripts/generateKeys.js to generate a public/private key pair.
+
    - The private key is used by the institute to sign certificates.
+
    - The public key will be used later for verification by companies.
+
    2. Signing Certificates
+
    - Place all certificate PDFs in data/Certificates.
+
    - Run scripts/signFiles.js to generate a digital signature for each certificate using the private key.
+
    - The script saves the signatures in data/signatures/ and creates a JSON file containing:
+
    - Certificate file name
+
    - Digital signature
+
    3. Submission by Institutes
+
    - Institutes must submit this JSON file along with the uploaded certificates.
+
    - The JSON is used by the backend to verify certificate authenticity when a company requests verification.
 
 ### API Endpoints
@@ -138,3 +153,4 @@ doc-verification-system/
 ### License
 
 This project is licensed under the MIT License.
+```
