@@ -13,7 +13,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/login", formData);
+      const res = await axios.post(`{import.meta.env.VITE_BACKEND_URL}/api/login`, formData);
       login(res.data.user, res.data.token);
       // alert("Login successful!");
     } catch (err) {

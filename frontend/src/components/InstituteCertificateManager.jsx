@@ -12,7 +12,7 @@ export default function InstituteCertificateManager({ onCertUploaded }) {
     // Check if certificate exists
     const fetchCertificate = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/institute/certificate`, {
+        const res = await axios.get(`{import.meta.env.VITE_BACKEND_URL}/api/institute/certificate`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.exists) {
@@ -33,7 +33,7 @@ export default function InstituteCertificateManager({ onCertUploaded }) {
     formData.append("certificateFile", pkcFile);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/institute/certificate", formData, {
+      const res = await axios.post(`{import.meta.env.VITE_BACKEND_URL}/api/institute/certificate`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCertificate(res.data.publicKey);

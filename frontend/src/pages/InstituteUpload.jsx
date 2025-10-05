@@ -1,7 +1,7 @@
 // src/pages/InstituteUpload.jsx
 import UploadForm from "../components/UploadForm";
 import InstituteCertificateManager from "../components/InstituteCertificateManager";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Logout from "../components/Logout";
 
 export default function InstituteUpload() {

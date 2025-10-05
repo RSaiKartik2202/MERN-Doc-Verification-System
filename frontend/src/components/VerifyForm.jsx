@@ -22,7 +22,7 @@ export default function VerifyForm() {
     formData.append("rollNumber", rollNumber);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/company/verify", formData, {
+      const res = await axios.post(`{import.meta.env.VITE_BACKEND_URL}/api/company/verify`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
