@@ -47,6 +47,13 @@ if (!fs.existsSync(certsFolder)) {
 
 const files = fs.readdirSync(certsFolder).filter((f) => f.endsWith(".pdf"));
 
+if(!files.length) {
+  console.error(`❌ No PDF files found in ${certsFolder}`);
+  process.exit(1);
+}
+
+console.log(`🖋️ Signing ${files.length} files for ${institutionCode}...`);
+
 const signatures = files.map((file) => {
   const filePath = path.join(certsFolder, file);
   const signature = signFile(filePath);

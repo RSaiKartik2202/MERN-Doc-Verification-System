@@ -1,6 +1,4 @@
 import asyncHandler from 'express-async-handler';
-import fs from "fs";
-import path from "path";
 import crypto from "crypto";
 import Certificate from '../models/Certificate.js';
 import InstituteCert from '../models/InstituteCert.js';
@@ -14,12 +12,6 @@ const uploadDocument = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Institute code, signature, roll number and file are required' });
   }
   console.log(`Received upload request from ${institutionCode} for roll number ${rollNumber}`);
-
-  const uploadsFolder=path.join(process.cwd(), 'data' , 'uploaded_files', institutionCode);
-
-  fs.mkdirSync(uploadsFolder, { recursive: true });
-  const filePath = path.join(uploadsFolder, file.originalname);
-  fs.writeFileSync(filePath, file.buffer);
 
   const existingCert = await InstituteCert.findOne({ institutionCode });
   if(!existingCert) {

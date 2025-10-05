@@ -16,7 +16,7 @@ app.use('/api', authRoutes);
 app.use('/api/institute', instituteRoutes);
 app.use('/api/company', companyRoutes);
 
-connect(process.env.MONGODB_URI).then(() => {
+connect(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
