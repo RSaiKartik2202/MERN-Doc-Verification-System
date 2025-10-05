@@ -58,7 +58,7 @@ export default function UploadForm({certExists}) {
       formData.append("rollNumber", rollNumber);
 
       try {
-        await axios.post(`{import.meta.env.VITE_BACKEND_URL}/api/institute/upload`, formData, {
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/institute/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
