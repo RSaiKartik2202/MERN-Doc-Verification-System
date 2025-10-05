@@ -1,0 +1,32 @@
+/* Add css to Home.jsx */
+
+/* Align the container to the center of the page */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(171, 248, 248);
+}
+.home-container {
+    background-color: white;
+    padding: 40px;
+    border: 4px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+.nav-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.link {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+}

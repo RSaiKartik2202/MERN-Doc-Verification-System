@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 export default function Home() {
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Welcome to the Document Verification System</h1>
-      <nav style={{ marginTop: "20px" }}>
-        <Link to="/register" style={{ marginRight: "10px" }}>Register</Link>
-        <Link to="/login">Login</Link>
+    <div className="home-container">
+      <h1 className="title">Welcome to the Document Verification System</h1>
+      <nav className="nav-links">
+        <Link to="/register" className="link">Register</Link>
+        <Link to="/login" className="link">Login</Link>
       </nav>
     </div>
   );
