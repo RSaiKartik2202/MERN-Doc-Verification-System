@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -22,13 +23,13 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        <select name="role" onChange={handleChange} required>
+      <form onSubmit={handleSubmit} className="register-form">
+        <input type="text" name="name" placeholder="Name" onChange={handleChange} className="input-box"/>
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} className="input-box"/>
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-box"/>
+        <select name="role" onChange={handleChange} required className="input-box">
             <option value="">Select Role</option>
             <option value="User">User</option>
             <option value="Company">Company</option>
@@ -37,11 +38,11 @@ export default function Register() {
 
         {
           formData.role === "Institution" && (
-            <input type="text" name="institutionCode" placeholder="Institution Code" onChange={handleChange} required />
+            <input type="text" name="institutionCode" placeholder="Institution Code" onChange={handleChange} required className="input-box"/>
           )
         }
 
-        <button type="submit">Register</button>
+        <button type="submit" className="register-btn">Register</button>
       </form>
     </div>
   );

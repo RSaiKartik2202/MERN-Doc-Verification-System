@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import "./Login.css";
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -22,12 +23,12 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        <button type="submit">Login</button>
+      <form onSubmit={handleSubmit} className="login-form">
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} className="input-box"/>
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-box"/>
+        <button type="submit" className="login-btn">Login</button>
       </form>
     </div>
   );
