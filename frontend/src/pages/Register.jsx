@@ -23,27 +23,29 @@ export default function Register() {
   };
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit} className="register-form">
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} className="input-box"/>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} className="input-box"/>
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-box"/>
-        <select name="role" onChange={handleChange} required className="input-box">
-            <option value="">Select Role</option>
-            <option value="User">User</option>
-            <option value="Company">Company</option>
-            <option value="Institution">Institution</option>
-        </select>
+    <div className="register-body">
+      <div className="register-container">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit} className="register-form">
+          <input type="text" name="name" placeholder="Name" onChange={handleChange} className="input-box"/>
+          <input type="email" name="email" placeholder="Email" onChange={handleChange} className="input-box"/>
+          <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-box"/>
+          <select name="role" onChange={handleChange} required className="input-box">
+              <option value="">Select Role</option>
+              <option value="User">User</option>
+              <option value="Company">Company</option>
+              <option value="Institution">Institution</option>
+          </select>
 
-        {
-          formData.role === "Institution" && (
-            <input type="text" name="institutionCode" placeholder="Institution Code" onChange={handleChange} required className="input-box"/>
-          )
-        }
+          {
+            formData.role === "Institution" && (
+              <input type="text" name="institutionCode" placeholder="Institution Code" onChange={handleChange} required className="input-box"/>
+            )
+          }
 
-        <button type="submit" className="register-btn">Register</button>
-      </form>
+          <button type="submit" className="register-btn">Register</button>
+        </form>
+      </div>
     </div>
   );
 }

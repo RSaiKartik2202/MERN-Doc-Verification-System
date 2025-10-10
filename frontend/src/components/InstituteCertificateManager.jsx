@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import "./InstituteCertificateManager.css";
 
 export default function InstituteCertificateManager({ onCertUploaded }) {
   const { token } = useContext(AuthContext);
@@ -45,14 +46,14 @@ export default function InstituteCertificateManager({ onCertUploaded }) {
   };
 
   return (
-    <div>
+    <div className="institute-certificate-manager-container">
       <h3>Institute Public Key Certificate</h3>
       {certificate ? (
-        <p>PKC uploaded ✅</p>
+        <p>PKC Uploaded ✅</p>
       ) : (
         <>
-          <input type="file" onChange={(e) => setPkcFile(e.target.files[0])} />
-          <button onClick={handleUploadCert} disabled={!pkcFile}>Upload Certificate</button>
+          <input type="file" onChange={(e) => setPkcFile(e.target.files[0])} className="pkc-file"/>
+          <button onClick={handleUploadCert} disabled={!pkcFile} className="submit-pkc-btn">Upload Certificate</button>
         </>
       )}
       {status && <p>{status}</p>}

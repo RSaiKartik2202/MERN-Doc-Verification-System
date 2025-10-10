@@ -1,7 +1,4 @@
-/* Add css to Home.jsx */
-
-/* Align the container to the center of the page */
-body {
+.home-body {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import InstituteUpload from "./pages/InstituteUpload";
 import CompanyVerify from "./pages/CompanyVerify";
 import ProtectedRoute from "./components/ProtectedRoute";
+import "./App.css";
 
 
 function App() {

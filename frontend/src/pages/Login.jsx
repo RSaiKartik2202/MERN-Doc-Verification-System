@@ -23,13 +23,15 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} className="input-box"/>
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-box"/>
-        <button type="submit" className="login-btn">Login</button>
-      </form>
+    <div className="login-body">
+      <div className="login-container">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit} className="login-form">
+          <input type="email" name="email" placeholder="Email" onChange={handleChange} className="input-box"/>
+          <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-box"/>
+          <button type="submit" className="login-btn">Login</button>
+        </form>
+      </div>
     </div>
   );
 }
