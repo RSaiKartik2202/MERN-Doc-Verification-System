@@ -2,6 +2,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import "./UploadForm.css";
 
 export default function UploadForm({certExists}) {
   const { token } = useContext(AuthContext);
@@ -70,17 +71,20 @@ export default function UploadForm({certExists}) {
       }
       setStatus([...newStatus]);
     }
+    setFiles([]);
+    setSignaturesFile(null);
+    setSignatures({});
   };
 
   return (
-    <div>
+    <div className="upload-form-container">
       <h3>Upload Signed Certificates</h3>
-      <input type="file" multiple onChange={handleFileChange} disabled={!certExists} />
+      <input type="file" multiple onChange={handleFileChange} disabled={!certExists} className="upload-file"/>
 
-      <h3>Signatures JSON:</h3>
-      <input type="file" accept=".json" disabled={!certExists} onChange={handleSignaturesChange} />
+      <h3>Upload Signatures(JSON)</h3>
+      <input type="file" accept=".json" disabled={!certExists} onChange={handleSignaturesChange} className="upload-file"/>
 
-      <button onClick={handleUpload} disabled={files.length === 0 || !certExists || !signaturesFile}>
+      <button onClick={handleUpload} disabled={files.length === 0 || !certExists || !signaturesFile} className="upload-btn">
         Upload
       </button>
 

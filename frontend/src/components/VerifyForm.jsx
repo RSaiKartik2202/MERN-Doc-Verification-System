@@ -2,6 +2,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import "./VerifyForm.css";
 
 export default function VerifyForm() {
   const { token } = useContext(AuthContext);
@@ -35,12 +36,12 @@ export default function VerifyForm() {
   };
 
   return (
-    <div>
+    <div className="verify-form-container">
       <h3>Verify Certificate</h3>
-      <input type="text" placeholder="Institution code" value={institutionCode} onChange={(e) => setInstitutionCode(e.target.value)} />
-      <input type="text" placeholder="Roll Number" value={rollNumber} onChange={(e) => setRollNumber(e.target.value)} />
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      <button onClick={handleVerify}>Verify</button>
+      <input type="text" placeholder="Institution code" value={institutionCode} onChange={(e) => setInstitutionCode(e.target.value)} className="text-box"/>
+      <input type="text" placeholder="Roll Number" value={rollNumber} onChange={(e) => setRollNumber(e.target.value)} className="text-box"/>
+      <input type="file" onChange={(e) => setFile(e.target.files[0])} className="file-upload"/>
+      <button onClick={handleVerify} className="verify-btn" disabled={!file || !institutionCode || !rollNumber}>Verify</button>
 
       {result && <p>Result: {result}</p>}
     </div>

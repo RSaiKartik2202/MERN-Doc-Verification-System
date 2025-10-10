@@ -1,4 +1,4 @@
-.institute-certificate-manager-container {
+.upload-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,24 +6,19 @@
     gap: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     border-radius: 8px;
-    /* background-color: #f9f9f9; */
     background-color: #ffffff;
 }
-.institute-certificate-manager-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+.upload-form-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
-.institute-certificate-manager-container h3 {
+.upload-form-container h3 {
     margin-bottom: 0.5rem;
     color: #3a70ef;
     font-size: 1.4rem;
     font-weight: bold;
 }
-.institute-certificate-manager-container p {
-    font-size: 1.2rem;
-    color: #23b554;
-}
-.pkc-file {
+.upload-file {
     margin-top: 1rem;
     padding: 0.6rem 1.2rem;
     border: 2px dashed #93bff1;
@@ -32,12 +27,12 @@
     background-color: #f9fafb;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
-.pkc-file:hover {
+.upload-file:hover {
   border-color: #3a70ef;
   background-color: #eef4ff;
   cursor: pointer;
 }
-.submit-pkc-btn {
+.upload-btn {
     padding: 0.6rem 1.2rem;
     border: none;
     border-radius: 6px;
@@ -46,13 +41,12 @@
     color: white;
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
-.submit-pkc-btn:hover:not(:disabled) {
+.upload-btn:hover:not(:disabled) {
   background-color: #3a9ad9;
   transform: translateY(-1px);
   cursor: pointer;
 }
-.submit-pkc-btn:disabled {
+.upload-btn:disabled {
     background-color: #a0cfee;
     cursor: not-allowed;
 }
-
